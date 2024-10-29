@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/classes', {
+            const response = await fetch('https://studio-management-2db77ac46923.herokuapp.com/api/classes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newClasses),
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const bookingData = { name: memberName, class: selectedClass, date: selectedDate };
 
         try {
-            const response = await fetch('http://localhost:3000/api/bookings', {
+            const response = await fetch('https://studio-management-2db77ac46923.herokuapp.com/api/bookings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingData),
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function loadInitialData() {
         try {
-            const classResponse = await fetch('http://localhost:3000/api/classes');
+            const classResponse = await fetch('https://studio-management-2db77ac46923.herokuapp.com/api/classes');
             classes = await classResponse.json();
             updateClassSelect();
         } catch (error) {

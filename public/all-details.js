@@ -10,10 +10,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Load classes and bookings data from server
     async function loadData() {
         try {
-            const classResponse = await fetch('http://localhost:3000/api/classes');
+            const classResponse = await fetch('https://studio-management-2db77ac46923.herokuapp.com/api/classes');
             classes = await classResponse.json();
             
-            const bookingResponse = await fetch('http://localhost:3000/api/bookings');
+            const bookingResponse = await fetch('https://studio-management-2db77ac46923.herokuapp.com/api/bookings');
             bookings = await bookingResponse.json();
 
             populateClasses();
