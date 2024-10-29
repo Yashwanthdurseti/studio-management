@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Date Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .calendar {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .day {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .day:hover {
+            background-color: #e0e0e0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .month {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Date Picker</h1>
+    <input type="text" id="date-picker" placeholder="Select a date" readonly>
+    <div class="calendar" id="calendar"></div>
+
+    <script>
+        const calendarElement = document.getElementById('calendar');
+        const datePicker = document.getElementById('date-picker');
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+        function generateCalendar(year, month) {
+            calendarElement.innerHTML = ''; // Clear previous calendar
+
+            const header = document.createElement('div');
+            header.className = 'header';
+
+            const monthLabel = document.createElement('span');
+            monthLabel.className = 'month';
+            monthLabel.innerText = `${year}-${String(month + 1).padStart(2, '0')}`;
+            header.appendChild(monthLabel);
+
+            const prevButton = document.createElement('button');
+            prevButton.innerText = '<';
+            prevButton.onclick = () => changeMonth(-1);
+            header.appendChild(prevButton);
+
+            const nextButton = document.createElement('button');
+            nextButton.innerText = '>';
+            nextButton.onclick = () => changeMonth(1);
+            header.appendChild(nextButton);
+
+            calendarElement.appendChild(header);
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+
+            // Display days
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.innerText = i;
+
+                // Handle day click
+                dayElement.addEventListener('click', () => {
+                    datePicker.value = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                });
+
+                calendarElement.appendChild(dayElement);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+
+        // Load the current month
+        generateCalendar(currentYear, currentMonth);
+    </script>
+</body>
+</html>
