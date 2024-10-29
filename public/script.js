@@ -72,6 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    function isValidName(name) {
+        const regex = /^[A-Za-z\s]+$/; // Only allows letters and spaces
+        return regex.test(name);
+    }
+
     document.getElementById('create-class-form').addEventListener('submit', async function (event) {
         event.preventDefault();
 
@@ -79,6 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const startDateValue = document.getElementById('start-date').value;
         const endDateValue = document.getElementById('end-date').value;
         const capacity = parseInt(document.getElementById('capacity').value);
+
+        if (!isValidName(className)) {
+            showModal("Invalid Class Name", "Class Name should only contain letters and spaces.");
+            return;
+        }
 
         const startDate = new Date(startDateValue);
         const endDate = new Date(endDateValue);
@@ -144,6 +154,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const memberName = document.getElementById('member-name').value.trim();
         const selectedClass = document.getElementById('class-select').value;
         const selectedDate = document.getElementById('date-picker').value;
+
+        if (!isValidName(memberName)) {
+            showModal("Invalid Name", "Your Name should only contain letters and spaces.");
+            return;
+        }
 
         if (!memberName || !selectedClass || !selectedDate) {
             alert("Please fill out all fields with valid information.");

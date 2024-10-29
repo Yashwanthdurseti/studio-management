@@ -79,13 +79,11 @@ input, select {
 
 .card-header {
     background-color: #333333;
-    color: #ffffff;
+    color: #ffffff;  /* White text for headers */
     padding: 1rem;
     font-size: 1.25rem;
     font-weight: 500;
 }
-
-
 
 /* Dropdown and Form Controls */
 .form-select, .form-control {
@@ -107,15 +105,13 @@ input, select {
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-primary {
-    background-color: #333333;
+.btn-success {
+    background-color: #28a745; /* Green for create button */
     color: #ffffff;
-    border: none;
 }
 
-.btn-primary:hover {
-    background-color: #1a1a1a;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
 .btn-secondary {
