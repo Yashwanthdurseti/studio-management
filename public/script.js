@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (startDate) {
                 startDate.setHours(0, 0, 0, 0); // Reset time for comparison
                 if (startDate < today) {
-                    showModal("Invalid Date", "Start day should be either the current day or following days, not past days.");
+                    showModal("The start date should be either today or a future date, not a past date.");
                     startDateInput.clear();
                 }
             }
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 startDate.setHours(0, 0, 0, 0);
                 endDate.setHours(0, 0, 0, 0);
                 if (endDate < startDate) {
-                    showModal("Invalid Date", "End date must be the same as or after the start date.");
+                    showModal("The end date must be the same as or later than the start date.");
                     endDateInput.clear();
                 }
             }
@@ -80,13 +80,20 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('create-class-form').addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const className = document.getElementById('class-name').value.trim();
+        const className = document.getElementById('class-name').value.trim().toLowerCase(); // Convert to lowercase
         const startDateValue = document.getElementById('start-date').value;
         const endDateValue = document.getElementById('end-date').value;
         const capacity = parseInt(document.getElementById('capacity').value);
 
+        // Check for existing class name
+        const classExists = classes.some(cls => cls.name.toLowerCase() === className);
+        if (classExists) {
+            showModal("Class Already Exists", "The class name you entered already exists. Please choose a different name.");
+            return;
+        }
+
         if (!isValidName(className)) {
-            showModal("Invalid Class Name", "Class Name should only contain letters and spaces.");
+            showModal("Invalid Class Name", "The class name should only contain letters and spaces.");
             return;
         }
 
@@ -94,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const endDate = new Date(endDateValue);
 
         if (!className || !startDateValue || !endDateValue || isNaN(capacity) || capacity <= 0) {
-            showModal("Invalid Input", "Please fill out all fields with valid information.");
+            showModal("Invalid Input: Please ensure all fields are filled out with valid information.");
             return;
         }
 
